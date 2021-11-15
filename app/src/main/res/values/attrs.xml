@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="theme_color" format="reference"/>
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+</resources>
