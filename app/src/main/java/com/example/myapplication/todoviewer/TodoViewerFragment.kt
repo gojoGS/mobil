@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.myapplication.R
 import com.example.myapplication.database.TodoDatabase
+import com.example.myapplication.database.TodoRepository
 import com.example.myapplication.databinding.FragmentTodoViewerBinding
 import com.example.myapplication.todomanager.TodoManagerFragmentDirections
 
@@ -33,7 +34,7 @@ class TodoViewerFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = TodoDatabase.getInstance(application).todoDatabaseDao
         Log.d("sad", "before args call")
-        val viewModelFactory = TodoViewerViewModelFactory(dataSource, TodoViewerFragmentArgs.fromBundle(requireArguments()).todoId)
+        val viewModelFactory = TodoViewerViewModelFactory(TodoRepository(dataSource), TodoViewerFragmentArgs.fromBundle(requireArguments()).todoId)
         Log.d("sad", "after args call")
 
 
@@ -44,10 +45,8 @@ class TodoViewerFragment : Fragment() {
         binding.todo = dataSource.get(TodoViewerFragmentArgs.fromBundle(requireArguments()).todoId)
 
         todoViewerViewModel.navigateToTodoManager.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+            if (it == true) {
                 this.findNavController().navigate(TodoViewerFragmentDirections.actionTodoViewerFragmentToTodoManager())
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
                 todoViewerViewModel.doneNavigating()
             }
         })

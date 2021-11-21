@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.myapplication.Priority
 import com.example.myapplication.R
 import com.example.myapplication.database.TodoDatabase
+import com.example.myapplication.database.TodoRepository
 import com.example.myapplication.databinding.FragmentNewTodoBinding
 import com.example.myapplication.todomanager.TodoAdapter
 
@@ -39,22 +40,17 @@ class NewTodoFragment : Fragment()  {
         val application = requireNotNull(this.activity).application
 
         val dataSource = TodoDatabase.getInstance(application).todoDatabaseDao
-        val viewModelFactory = NewTodoViewModelFactory(dataSource)
+        val viewModelFactory = NewTodoViewModelFactory(TodoRepository(dataSource))
 
         val newTodoViewModel =
             ViewModelProvider(
                 this, viewModelFactory).get(NewTodoViewModel::class.java)
 
-        // To use the View Model with data binding, you have to explicitly
-        // give the binding object a reference to it.
         binding.newTodoViewModel = newTodoViewModel
 
-        // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
         newTodoViewModel.navigateToTodoManager.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+            if (it == true) {
                 this.findNavController().navigate(NewTodoFragmentDirections.actionNewTodoFragmentToTodoManager())
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
                 newTodoViewModel.doneNavigating()
             }
         })

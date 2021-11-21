@@ -7,15 +7,15 @@ import androidx.lifecycle.*
 import com.example.myapplication.Priority
 import com.example.myapplication.database.Todo
 import com.example.myapplication.database.TodoDatabaseDao
+import com.example.myapplication.database.TodoRepository
 import kotlinx.coroutines.launch
 
 class TodoManagerViewModel(
-    dataSource: TodoDatabaseDao,
+    private val repository: TodoRepository,
     application: Application
 ) : ViewModel() {
-    val database = dataSource
 
-    val todos = database.getAllTodo()
+    val todos = repository.getAllTodo()
 
     private val _navigateToNewTodo = MutableLiveData<Boolean?>()
     private val _navigateToTodo = MutableLiveData<Boolean>()
@@ -39,7 +39,7 @@ class TodoManagerViewModel(
 
     fun onClear() {
         viewModelScope.launch {
-            database.delete()
+            repository.clear()
         }
     }
 

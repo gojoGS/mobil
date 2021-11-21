@@ -7,22 +7,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Priority
 import com.example.myapplication.database.Todo
 import com.example.myapplication.database.TodoDatabaseDao
+import com.example.myapplication.database.TodoRepository
 import kotlinx.coroutines.launch
 
 class TodoViewerViewModel(
-    dataSource: TodoDatabaseDao,
+    private val repository: TodoRepository,
     val todoId: Long
 ) : ViewModel() {
-    val database = dataSource
 
     private val _navigateToTodoManager = MutableLiveData<Boolean?>()
 
     val navigateToTodoManager: LiveData<Boolean?>
         get() = _navigateToTodoManager
 
-    /**
-     * Call this immediately after navigating to [SleepTrackerFragment]
-     */
     fun doneNavigating() {
         _navigateToTodoManager.value = null
     }
@@ -35,7 +32,7 @@ class TodoViewerViewModel(
 
     fun onDone() {
         viewModelScope.launch {
-            database.deleteTodo(todoId)
+            repository.deleteByKey(todoId)
             _navigateToTodoManager.value = true
         }
     }

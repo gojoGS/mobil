@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">TodoManager</string>
     <string name="todo_name">TODO name:</string>
     <string name="todo_description">Description</string>
     <string name="ok_button_text">OK</string>
@@ -10,5 +10,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="clear">Clear</string>
-    <string name="done_button_text">Done</string>
+    <string name="done_button_text">Complete</string>
+    <string name="back_button_text">Back</string>
 </resources>

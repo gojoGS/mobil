@@ -10,22 +10,18 @@ import com.example.myapplication.Priority
 import com.example.myapplication.R
 import com.example.myapplication.database.Todo
 import com.example.myapplication.database.TodoDatabaseDao
+import com.example.myapplication.database.TodoRepository
 import com.example.myapplication.databinding.FragmentNewTodoBinding
 import kotlinx.coroutines.launch
 
 class NewTodoViewModel (
-    dataSource: TodoDatabaseDao
+    private val repository: TodoRepository
 ) : ViewModel() {
-    val database = dataSource
-
     private val _navigateToTodoManager = MutableLiveData<Boolean?>()
 
     val navigateToTodoManager: LiveData<Boolean?>
         get() = _navigateToTodoManager
 
-    /**
-     * Call this immediately after navigating to [SleepTrackerFragment]
-     */
     fun doneNavigating() {
         _navigateToTodoManager.value = null
     }
@@ -44,7 +40,7 @@ class NewTodoViewModel (
             return
 
         viewModelScope.launch {
-            database.insert(Todo(name, description, priority))
+            repository.insert(Todo(name, description, priority))
             _navigateToTodoManager.value = true
         }
     }

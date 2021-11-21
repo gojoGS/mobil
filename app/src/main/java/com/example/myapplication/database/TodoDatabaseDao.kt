@@ -9,13 +9,13 @@ import androidx.room.TypeConverters
 @Dao
 interface TodoDatabaseDao {
     @Insert
-    fun insert(todo: Todo): Unit
+    suspend fun insert(todo: Todo): Unit
 
     @Query("DELETE FROM todo_table WHERE todoId = :key")
-    fun deleteTodo(key: Long): Unit
+    suspend fun deleteTodo(key: Long): Unit
 
     @Query("DELETE FROM todo_table")
-    fun delete()
+    suspend fun delete()
 
     @Query("SELECT * FROM todo_table ORDER BY todo_priority DESC")
     fun getAllTodo(): LiveData<List<Todo>>
