@@ -46,13 +46,13 @@ class TodoManagerFragment : Fragment(){
         val adapter = TodoAdapter(OnTodoClickListener { todo -> todoManagerViewModel.onClick(todo) })
         binding.todoList.adapter = adapter
 
-        todoManagerViewModel.todos.observe(viewLifecycleOwner, Observer {
+        todoManagerViewModel.todos.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }
         })
 
-        todoManagerViewModel.navigateToTodo.observe(viewLifecycleOwner, Observer {
+        todoManagerViewModel.navigateToTodo.observe(viewLifecycleOwner, {
             if (it == true) {
                 Log.d("asd", "navigateToTodo.observe")
 
@@ -65,9 +65,13 @@ class TodoManagerFragment : Fragment(){
             }
         })
 
+        todoManagerViewModel.muberOfTodos.observe(viewLifecycleOwner, {
+            binding.numberOfTodos.text =  String.format("%s todo(s) left to do", it)
+        })
+
         binding.setLifecycleOwner(this)
 
-        todoManagerViewModel.navigateToNewTodo.observe(viewLifecycleOwner, Observer {
+        todoManagerViewModel.navigateToNewTodo.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(TodoManagerFragmentDirections.actionTodoManagerToNewTodoFragment())
                 todoManagerViewModel.doneNavigating()

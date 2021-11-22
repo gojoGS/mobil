@@ -16,6 +16,7 @@ class TodoManagerViewModel(
 ) : ViewModel() {
 
     val todos = repository.getAllTodo()
+    val muberOfTodos: LiveData<Int> = Transformations.map(todos) { data -> data.size }
 
     private val _navigateToNewTodo = MutableLiveData<Boolean?>()
     private val _navigateToTodo = MutableLiveData<Boolean>()

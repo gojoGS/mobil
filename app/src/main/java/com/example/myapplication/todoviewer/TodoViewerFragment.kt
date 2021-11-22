@@ -44,7 +44,7 @@ class TodoViewerFragment : Fragment() {
         binding.todoViewerViewModel = todoViewerViewModel
         binding.todo = dataSource.get(TodoViewerFragmentArgs.fromBundle(requireArguments()).todoId)
 
-        todoViewerViewModel.navigateToTodoManager.observe(viewLifecycleOwner, Observer {
+        todoViewerViewModel.navigateToTodoManager.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(TodoViewerFragmentDirections.actionTodoViewerFragmentToTodoManager())
                 todoViewerViewModel.doneNavigating()

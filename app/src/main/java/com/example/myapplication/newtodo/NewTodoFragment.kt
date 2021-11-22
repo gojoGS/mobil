@@ -48,7 +48,7 @@ class NewTodoFragment : Fragment()  {
 
         binding.newTodoViewModel = newTodoViewModel
 
-        newTodoViewModel.navigateToTodoManager.observe(viewLifecycleOwner, Observer {
+        newTodoViewModel.navigateToTodoManager.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(NewTodoFragmentDirections.actionNewTodoFragmentToTodoManager())
                 newTodoViewModel.doneNavigating()
