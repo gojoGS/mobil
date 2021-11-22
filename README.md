@@ -7,7 +7,7 @@
 - [x] SafeArgs Plugin használata a Fragmentek közti navigációhoz (1p)
 - [x] ViewModel használata (1p)
 - [x] LiveData backing propertyvel (1p)
-- [ ] LiveData transformation használata (1p)
+- [x] LiveData transformation használata (1p)
 - [x] RoomDatabase használata (1p)
 - [x] Coroutine-ok használata az adatbázisműveletekez (1p)
 - [x] RecyclerView használata (1p)
